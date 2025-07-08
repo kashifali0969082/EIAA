@@ -61,3 +61,4 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
       </div>
     </div>
   );
+}
