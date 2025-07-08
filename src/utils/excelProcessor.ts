@@ -9,43 +9,106 @@ export interface ProcessedData {
 
 export const processExcelFile = async (file: File): Promise<ProcessedData> => {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader();
+    const fileExtension = file.name.toLowerCase().split('.').pop();
     
-    reader.onload = (e) => {
-      try {
-        const data = new Uint8Array(e.target?.result as ArrayBuffer);
-        const workbook = XLSX.read(data, { type: 'array' });
-        
-        // Get the first worksheet
-        const sheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[sheetName];
-        
-        // Convert to JSON array
-        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-        
-        if (jsonData.length === 0) {
-          reject(new Error('The file appears to be empty'));
-          return;
+    if (['xlsx', 'xls', 'csv'].includes(fileExtension || '')) {
+      // Handle Excel and CSV files
+      const reader = new FileReader();
+      
+      reader.onload = (e) => {
+        try {
+          const data = new Uint8Array(e.target?.result as ArrayBuffer);
+          const workbook = XLSX.read(data, { type: 'array' });
+          
+          // Get the first worksheet
+          const sheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[sheetName];
+          
+          // Convert to JSON array
+          const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+          
+          if (jsonData.length === 0) {
+            reject(new Error('The file appears to be empty'));
+            return;
+          }
+          
+          const headers = (jsonData[0] as string[]) || [];
+          const dataRows = jsonData.slice(1) as any[][];
+          
+          resolve({
+            headers: headers.map(h => h?.toString() || ''),
+            data: dataRows,
+            originalData: dataRows.map(row => [...row])
+          });
+        } catch (error) {
+          reject(new Error('Failed to process the file. Please ensure it\'s a valid file.'));
         }
-        
-        const headers = (jsonData[0] as string[]) || [];
-        const dataRows = jsonData.slice(1) as any[][];
-        
-        resolve({
-          headers: headers.map(h => h?.toString() || ''),
-          data: dataRows,
-          originalData: dataRows.map(row => [...row])
-        });
-      } catch (error) {
-        reject(new Error('Failed to process the Excel file. Please ensure it\'s a valid Excel file.'));
-      }
-    };
+      };
+      
+      reader.readAsArrayBuffer(file);
+    } else if (['txt', 'json'].includes(fileExtension || '')) {
+      // Handle text and JSON files
+      const reader = new FileReader();
+      
+      reader.onload = (e) => {
+        try {
+          const content = e.target?.result as string;
+          
+          if (fileExtension === 'json') {
+            const jsonData = JSON.parse(content);
+            if (Array.isArray(jsonData) && jsonData.length > 0) {
+              const headers = Object.keys(jsonData[0]);
+              const dataRows = jsonData.map(item => headers.map(header => item[header]));
+              
+              resolve({
+                headers,
+                data: dataRows,
+                originalData: dataRows.map(row => [...row])
+              });
+            } else {
+              reject(new Error('JSON file must contain an array of objects'));
+            }
+          } else {
+            // Handle plain text files
+            const lines = content.split('\n').filter(line => line.trim());
+            if (lines.length === 0) {
+              reject(new Error('The file appears to be empty'));
+              return;
+            }
+            
+            const headers = ['Line Number', 'Content'];
+            const dataRows = lines.map((line, index) => [index + 1, line.trim()]);
+            
+            resolve({
+              headers,
+              data: dataRows,
+              originalData: dataRows.map(row => [...row])
+            });
+          }
+        } catch (error) {
+          reject(new Error('Failed to process the file. Please ensure it\'s a valid file.'));
+        }
+      };
+      
+      reader.readAsText(file);
+    } else {
+      // Handle other file types (PDF, Word docs) - basic info extraction
+      const headers = ['Property', 'Value'];
+      const dataRows = [
+        ['File Name', file.name],
+        ['File Size', `${(file.size / 1024).toFixed(2)} KB`],
+        ['File Type', file.type || 'Unknown'],
+        ['Last Modified', new Date(file.lastModified).toLocaleString()],
+        ['Status', 'File uploaded successfully - content extraction not available for this file type']
+      ];
+      
+      resolve({
+        headers,
+        data: dataRows,
+        originalData: dataRows.map(row => [...row])
+      });
+    }
     
-    reader.onerror = () => {
-      reject(new Error('Failed to read the file'));
-    };
-    
-    reader.readAsArrayBuffer(file);
   });
 };
 

@@ -14,11 +14,19 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect, isProcessi
     const validTypes = [
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'application/vnd.ms-excel',
-      'text/csv'
+      'text/csv',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/msword',
+      'application/pdf',
+      'text/plain',
+      'application/json'
     ];
     
-    if (!validTypes.includes(file.type) && !file.name.endsWith('.xlsx') && !file.name.endsWith('.xls') && !file.name.endsWith('.csv')) {
-      setError('Please upload a valid Excel file (.xlsx, .xls) or CSV file');
+    const validExtensions = ['.xlsx', '.xls', '.csv', '.docx', '.doc', '.pdf', '.txt', '.json'];
+    const hasValidExtension = validExtensions.some(ext => file.name.toLowerCase().endsWith(ext));
+    
+    if (!validTypes.includes(file.type) && !hasValidExtension) {
+      setError('Please upload a valid file (.xlsx, .xls, .csv, .docx, .doc, .pdf, .txt, .json)');
       return false;
     }
     
@@ -82,7 +90,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect, isProcessi
       >
         <input
           type="file"
-          accept=".xlsx,.xls,.csv"
+          accept=".xlsx,.xls,.csv,.docx,.doc,.pdf,.txt,.json"
           onChange={handleFileInput}
           disabled={isProcessing}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -101,14 +109,14 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect, isProcessi
           
           <div>
             <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              Drop your Excel file here
+              Drop your file here
             </h3>
             <p className="text-gray-600 dark:text-gray-300 mb-4">
               or click to browse and select a file
             </p>
             <div className="flex items-center justify-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
               <FileText className="w-4 h-4" />
-              <span>Supports .xlsx, .xls, and .csv files up to 10MB</span>
+              <span>Supports Excel, Word, PDF, CSV, TXT, JSON files up to 10MB</span>
             </div>
           </div>
         </div>

@@ -99,8 +99,8 @@ function App() {
                   <FileSpreadsheet className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Excel AI Formatter</h1>
-                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Transform your spreadsheets with intelligent formatting</p>
+                  <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">AI File Processor</h1>
+                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Transform your files with intelligent processing</p>
                 </div>
               </div>
               <ThemeToggle />
@@ -136,10 +136,10 @@ function App() {
                     <div className="absolute inset-0 w-12 sm:w-16 h-12 sm:h-16 bg-seagreen-400 rounded-full opacity-20 animate-ping mx-auto"></div>
                   </div>
                   <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                    Upload Your Excel File
+                    Upload Your File
                   </h2>
                   <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg">
-                    Let AI transform your data into a perfectly formatted spreadsheet
+                    Let AI transform your data into a perfectly formatted file
                   </p>
                 </div>
                 <FileUpload onFileSelect={handleFileSelect} isProcessing={isProcessing} />
@@ -186,10 +186,10 @@ function App() {
               <div className="space-y-6 sm:space-y-8 animate-slideInUp">
                 <div className="text-center">
                   <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                    Formatting Complete!
+                    Processing Complete!
                   </h2>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Your data has been transformed and is ready for download
+                    Your file has been processed and is ready for download
                   </p>
                 </div>
 
@@ -219,7 +219,7 @@ function App() {
                     onClick={handleStartOver}
                     className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 transform hover:scale-105"
                   >
-                    Format Another File
+                    Process Another File
                   </button>
                 </div>
               </div>
@@ -231,7 +231,7 @@ function App() {
         <footer className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-t border-gray-200 dark:border-gray-700 mt-16">
           <div className="max-w-6xl mx-auto px-4 py-8">
             <div className="text-center text-gray-600 dark:text-gray-400">
-              <p>Built with AI-powered formatting capabilities</p>
+              <p>Built with AI-powered file processing capabilities</p>
             </div>
           </div>
         </footer>
