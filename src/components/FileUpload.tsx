@@ -73,10 +73,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect, isProcessi
   }, [onFileSelect]);
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-2xl mx-auto px-2 sm:px-0">
       <div
         className={`
-          relative border-2 border-dashed rounded-2xl p-8 sm:p-12 text-center transition-all duration-300 ease-in-out
+          relative border-2 border-dashed rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 text-center transition-all duration-300 ease-in-out
           ${isDragOver 
             ? 'border-seagreen-500 bg-seagreen-50 dark:bg-seagreen-900/20 scale-105' 
             : 'border-gray-300 dark:border-gray-600 hover:border-seagreen-400 dark:hover:border-seagreen-500 hover:bg-seagreen-50/50 dark:hover:bg-seagreen-900/10'
@@ -96,36 +96,36 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect, isProcessi
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
         />
         
-        <div className="flex flex-col items-center space-y-4">
+        <div className="flex flex-col items-center space-y-3 sm:space-y-4">
           <div className={`
-            p-4 rounded-full transition-all duration-300 transform hover:scale-110
+            p-3 sm:p-4 rounded-full transition-all duration-300 transform hover:scale-110
             ${isDragOver ? 'bg-seagreen-100 dark:bg-seagreen-900' : 'bg-gray-100 dark:bg-gray-700'}
           `}>
             <Upload className={`
-              w-8 sm:w-12 h-8 sm:h-12 transition-colors duration-300
+              w-6 sm:w-8 md:w-12 h-6 sm:h-8 md:h-12 transition-colors duration-300
               ${isDragOver ? 'text-seagreen-600 dark:text-seagreen-400' : 'text-gray-600 dark:text-gray-400'}
             `} />
           </div>
           
           <div>
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-2">
               Drop your file here
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
+            <p className="text-gray-600 dark:text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base">
               or click to browse and select a file
             </p>
-            <div className="flex items-center justify-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex items-center justify-center space-x-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
               <FileText className="w-4 h-4" />
-              <span>Supports Excel, Word, PDF, CSV, TXT, JSON files up to 10MB</span>
+              <span className="text-center">Supports Excel, Word, PDF, CSV, TXT, JSON files up to 10MB</span>
             </div>
           </div>
         </div>
       </div>
       
       {error && (
-        <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center space-x-2 animate-slideInDown">
+        <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-start space-x-2 animate-slideInDown">
           <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
-          <p className="text-red-700 dark:text-red-400">{error}</p>
+          <p className="text-red-700 dark:text-red-400 text-sm sm:text-base">{error}</p>
         </div>
       )}
     </div>

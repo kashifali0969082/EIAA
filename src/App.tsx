@@ -92,30 +92,32 @@ function App() {
       <div className="min-h-screen bg-gradient-to-br from-seagreen-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 transition-all duration-500">
         {/* Header */}
         <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-all duration-300">
-          <div className="max-w-6xl mx-auto px-4 py-4 sm:py-6">
+          <div className="max-w-6xl mx-auto px-3 sm:px-4 py-3 sm:py-4 md:py-6">
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
                 <div className="p-2 bg-gradient-to-r from-seagreen-500 to-emerald-500 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-200">
-                  <FileSpreadsheet className="w-6 h-6 text-white" />
+                  <FileSpreadsheet className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <div>
-                  <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">AI File Processor</h1>
-                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Transform your files with intelligent processing</p>
+                <div className="min-w-0 flex-1">
+                  <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white truncate">AI File Processor</h1>
+                  <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-300 hidden sm:block">Transform your files with intelligent processing</p>
                 </div>
               </div>
-              <ThemeToggle />
+              <div className="flex-shrink-0">
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         </header>
 
-        <main className="max-w-6xl mx-auto px-4 py-6 sm:py-8">
+        <main className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
           {error && (
-            <div className="mb-8 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg animate-slideInDown">
+            <div className="mb-4 sm:mb-6 md:mb-8 p-3 sm:p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg animate-slideInDown">
               <p className="text-red-700 dark:text-red-400">{error}</p>
             </div>
           )}
 
-          <div className="space-y-6 sm:space-y-8">
+          <div className="space-y-4 sm:space-y-6 md:space-y-8">
             {/* Completed Files Section */}
             {completedFiles.length > 0 && (
               <div className="animate-fadeIn">
@@ -130,15 +132,15 @@ function App() {
             {/* Step 1: Upload */}
             {state === 'upload' && (
               <div className="text-center animate-fadeIn">
-                <div className="mb-8">
+                <div className="mb-6 sm:mb-8">
                   <div className="relative inline-block">
-                    <Sparkles className="w-12 sm:w-16 h-12 sm:h-16 text-seagreen-600 dark:text-seagreen-400 mx-auto mb-4 animate-pulse" />
-                    <div className="absolute inset-0 w-12 sm:w-16 h-12 sm:h-16 bg-seagreen-400 rounded-full opacity-20 animate-ping mx-auto"></div>
+                    <Sparkles className="w-10 sm:w-12 md:w-16 h-10 sm:h-12 md:h-16 text-seagreen-600 dark:text-seagreen-400 mx-auto mb-3 sm:mb-4 animate-pulse" />
+                    <div className="absolute inset-0 w-10 sm:w-12 md:w-16 h-10 sm:h-12 md:h-16 bg-seagreen-400 rounded-full opacity-20 animate-ping mx-auto"></div>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
                     Upload Your File
                   </h2>
-                  <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base md:text-lg px-4">
                     Let AI transform your data into a perfectly formatted file
                   </p>
                 </div>
@@ -148,12 +150,12 @@ function App() {
 
             {/* Step 2: Preview and Format */}
             {(state === 'preview' || state === 'formatting') && originalData && (
-              <div className="space-y-6 sm:space-y-8 animate-slideInUp">
+              <div className="space-y-4 sm:space-y-6 md:space-y-8 animate-slideInUp">
                 <div className="text-center">
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">
                     Review Your Data
                   </h2>
-                  <p className="text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base px-4">
                     Preview your data and choose formatting options
                   </p>
                 </div>
@@ -173,7 +175,7 @@ function App() {
                 <div className="flex justify-center">
                   <button
                     onClick={handleStartOver}
-                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white underline transition-colors duration-200"
+                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white underline transition-colors duration-200 text-sm sm:text-base"
                   >
                     Upload a different file
                   </button>
@@ -183,12 +185,12 @@ function App() {
 
             {/* Step 3: Complete */}
             {state === 'complete' && formattedData && (
-              <div className="space-y-6 sm:space-y-8 animate-slideInUp">
+              <div className="space-y-4 sm:space-y-6 md:space-y-8 animate-slideInUp">
                 <div className="text-center">
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">
                     Processing Complete!
                   </h2>
-                  <p className="text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base px-4">
                     Your file has been processed and is ready for download
                   </p>
                 </div>
@@ -199,7 +201,7 @@ function App() {
                   isReady={true}
                 />
 
-                <div className="grid lg:grid-cols-2 gap-6 sm:gap-8">
+                <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
                   <DataPreview
                     data={originalData?.data || []}
                     headers={originalData?.headers || []}
@@ -217,7 +219,7 @@ function App() {
                 <div className="flex justify-center">
                   <button
                     onClick={handleStartOver}
-                    className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 transform hover:scale-105"
+                    className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 sm:px-6 py-2 sm:py-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 transform hover:scale-105 text-sm sm:text-base"
                   >
                     Process Another File
                   </button>
@@ -229,9 +231,9 @@ function App() {
 
         {/* Footer */}
         <footer className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-t border-gray-200 dark:border-gray-700 mt-16">
-          <div className="max-w-6xl mx-auto px-4 py-8">
+          <div className="max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
             <div className="text-center text-gray-600 dark:text-gray-400">
-              <p>Built with AI-powered file processing capabilities</p>
+              <p className="text-sm sm:text-base">Built with AI-powered file processing capabilities</p>
             </div>
           </div>
         </footer>
