@@ -54,7 +54,6 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
           <span className="px-3 py-1 bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300 rounded-full text-sm">
             Empty Rows Removed
           </span>
-          <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm">
           <span className="px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 rounded-full text-sm">
             Dates Formatted
           </span>
@@ -62,6 +61,3 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
       </div>
     </div>
   );
-};
-  )
-}
